@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Just for You, My Love</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffdde1, #fbd3e9);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4d88;
+      margin-top: 100px;
+      text-shadow: 0 0 15px #ff99cc;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff99cc;
+      }
+      to {
+        text-shadow: 0 0 20px #ff66b2, 0 0 30px #ff99cc;
+      }
+    }
+
+    .quote {
+      font-size: 1.5em;
+      color: #8e44ad;
+      margin: 30px auto;
+      width: 80%;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    #countdown {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .flower {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://i.imgur.com/N5uCbDu.png');
+      background-size: cover;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Just for You, My Love 💕</h1>
+  <div id="countdown"></div>
+  <p class="quote" id="dailyWish">Loading your special message...</p>
+
+  <audio id="bgMusic" loop ></audio>
+ <script>
+  const wishes = [
+  { 
+    msg: "Day 1: From the moment you walked into my life, everything changed. Your presence has brought light, peace, and purpose into my world. I never believed in magic until I met you. 💫", 
+    music: "songs/song1.mp3" 
+  },
+  { 
+    msg: "Day 2: Every time you smile, it’s like the sun rises all over again just for me. You have this rare ability to turn ordinary moments into unforgettable memories. ☀️", 
+    music: "songs/song2.mp3" 
+  },
+  { 
+    msg: "Day 3: You are not just the love of my life — you're my best friend, my confidant, and my safe place. With you, I can be my truest self, and that’s the most beautiful feeling in the world. 🫂", 
+    music: "songs/song3.mp3" 
+  },
+  { 
+    msg: "Day 4: Whenever I close my eyes, I find myself reliving the sweet moments we’ve shared. Your love wraps around me like a warm hug, even from miles away. 🕊️", 
+    music: "songs/song4.mp3" 
+  },
+  { 
+    msg: "Day 5: Loving you is the easiest thing I’ve ever done. You make me feel seen, understood, and cherished — and every single heartbeat I have belongs to you. ❤️", 
+    music: "songs/song5.mp3" 
+  },
+  { 
+    msg: "Day 6: I don’t need a perfect life, just a moment with you. Every day, I find a new reason to fall for you all over again. You are my greatest blessing. 🌹", 
+    music: "songs/song6.mp3" 
+  },
+  { 
+    msg: "Day 7: I love the way you care for others, the softness in your heart, the fire in your soul — you are art in motion, and I could spend forever admiring you. 🎨", 
+    music: "songs/song7.mp3" 
+  },
+  { 
+    msg: "Day 8: Distance means so little when someone means so much. Even though I can’t hold your hand today, know that my love wraps around you every second. 🌙", 
+    music: "songs/song8.mp3" 
+  },
+  { 
+    msg: "Day 9: You are my home. No matter where life takes us, I’ll always find my way back to you — to your love, to your laugh, to your heart. 🏡", 
+    music: "songs/song9.mp3" 
+  },
+  { 
+    msg: "Day 10: Happy Birthday, my forever love! 🎂🎉 On this day, the world got its most beautiful soul. You deserve the universe, and I’m just lucky to orbit around your heart. 💖", 
+    music: "songs/song10.mp3" 
+  }
+];
+
+
+  window.onload = function () {
+    const messageElement = document.getElementById("dailyWish");
+    const today = new Date().getDate();
+    const startDay = 19;
+    const dayIndex = today - startDay;
+
+    if (dayIndex >= 0 && dayIndex < wishes.length) {
+      const wish = wishes[dayIndex];
+      messageElement.textContent = wish.msg;
+
+      const audio = document.getElementById("bgMusic");
+      audio.src = wish.music;
+      audio.play().catch((err) => {
+        console.log("Autoplay blocked or error in playing audio:", err);
+
+        const playBtn = document.createElement("button");
+    playBtn.textContent = "❤ Play             ";
+    playBtn.style.width = "60px";
+    playBtn.style.height = "60px";
+    playBtn.style.borderRadius = "50%";
+    playBtn.style.border = "none";
+    playBtn.style.fontSize = "1.2em";
+    playBtn.style.background = "linear-gradient(to right, #ff758c, #ff7eb3)";
+    playBtn.style.color = "white";
+    playBtn.style.boxShadow = "0 10px 20px rgba(255, 105, 180, 0.4)";
+    playBtn.style.cursor = "pointer";
+    playBtn.style.marginTop = "20px";
+
+    playBtn.onclick = () => {
+        audio.play().catch(err => {
+            console.log("Autoplay blocked:", err);
+        });
+    };
+
+    document.body.appendChild(playBtn);
+
+      });
+    } else {
+      messageElement.textContent = "Come back on 19th for something magical! 💫";
+    }
+
+    
+
+    // 💗 Show surprise button only on 28
+    if (today === 28) {
+      const btn = document.createElement("button");
+      btn.textContent = "Click to Reveal Your Surprise 🎁";
+      btn.style.padding = "15px 30px";
+      btn.style.fontSize = "1.2em";
+      btn.style.background = "#ff66b2";
+      btn.style.color = "white";
+      btn.style.border = "none";
+      btn.style.borderRadius = "30px";
+      btn.style.cursor = "pointer";
+      btn.style.marginTop = "20px";
+      btn.style.boxShadow = "0 0 15px rgba(255, 105, 180, 0.6)";
+      btn.onclick = () => {
+        window.location.href = "try.html"; // 🎈 your birthday wish page!
+      };
+      document.body.appendChild(btn);
+    }
+
+    // 💖 Create falling animated flowers or hearts
+    const emojis = ['🌸', '💖', '🌷', '💗']; // You can mix flowers + hearts
+    for (let i = 0; i < 30; i++) {
+      const fall = document.createElement("div");
+      fall.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      fall.style.position = "absolute";
+      fall.style.left = Math.random() * 100 + "vw";
+      fall.style.top = "-50px";
+      fall.style.fontSize = Math.random() * 15 + 20 + "px";
+      fall.style.animation = `falling ${5 + Math.random() * 5}s linear infinite`;
+      document.body.appendChild(fall);
+    }
+  };
+</script>
+
+<style>
+  @keyframes falling {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+ 
+
+</body>
+</html>
